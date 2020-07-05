@@ -14,6 +14,7 @@ INTEGER, PARAMETER :: MAX_REACTIONS=10               !< Maximum number of chemic
 INTEGER, PARAMETER :: MAX_STEPS=20                   !< Maximum steps in processing of material residues
 INTEGER, PARAMETER :: MAX_NUMBER_SPECTRAL_BANDS=9    !< Maximum number of radiation spectral bands
 INTEGER, PARAMETER :: MAX_NUMBER_FSK_POINTS=32
+INTEGER, PARAMETER :: MAX_TERRAIN_IMAGES=10          !< Maximum number of images to paste onto complex terrain
 INTEGER, PARAMETER :: MAX_INPUT_ID=40                !< Maximum number of CTRL INPUT_IDs
 INTEGER, PARAMETER :: N_ZONE_POINTS=100              !< Maximum number of declared ZONE points (deprecated)
 INTEGER, PARAMETER :: MAX_AIT_EXCLUSION_ZONES=10     !< Maximum number of AUTO_IGNITION_TEMPERATURE exclusion zones
@@ -27,7 +28,8 @@ INTEGER, PARAMETER :: N_OUTPUT_QUANTITIES=550        !< Dimension of array that 
 
 REAL(EB), PARAMETER :: ALMOST_ONE=1._EB-EPSILON(1._EB)     !< Largest number that is < 1 in 8 byte accuracy
 REAL(EB), PARAMETER :: MICRON=1.E-6_EB                     !< A relatively small length (m)
-REAL(EB), PARAMETER :: TWO_EPSILON_EB=2._EB*EPSILON(1._EB) !< A very small number
+REAL(EB), PARAMETER :: TWO_EPSILON_EB=2._EB*EPSILON(1._EB) !< A very small number 8 byte accruracy
+REAL(FB), PARAMETER :: TWO_EPSILON_FB=2._EB*EPSILON(1._FB) !< A very small number 4 byte accruracy
 REAL(EB), PARAMETER :: TINY_EB=TINY(1._EB)                 !< The smallest resolvable 8 byte real number
 REAL(EB), PARAMETER :: HUGE_EB=HUGE(1._EB)                 !< The largest resolvable 8 btye real number
 

@@ -142,6 +142,7 @@ $QFDS -o 4 -d Complex_Geometry rotated_cube_45deg_384_exp.fds
 $QFDS -o 4 -d Complex_Geometry rotated_cube_45deg_384_imp.fds
 
 $QFDS -d Complex_Geometry cone_1mesh.fds
+$QFDS -d Complex_Geometry geom_mass_file_test.fds
 
 $QFDS -d Controls activate_vents.fds
 $QFDS -d Controls control_test.fds
@@ -398,6 +399,8 @@ $QFDS -d Pyrolysis cable_11_jacket_mcc.fds
 $QFDS -d Pyrolysis cable_23_jacket_mcc.fds
 $QFDS -d Pyrolysis cable_701_jacket_mcc.fds
 $QFDS -d Pyrolysis cell_burn_away.fds
+$QFDS -d Pyrolysis cone_demo.fds
+$QFDS -d Pyrolysis cone_demo_2.fds
 $QFDS -d Pyrolysis birch_tga_1step_2.fds
 $QFDS -d Pyrolysis birch_tga_1step_20.fds
 $QFDS -d Pyrolysis enthalpy.fds
@@ -449,7 +452,9 @@ $QFDS -d Pyrolysis water_ice_water.fds
 $QFDS -d Pyrolysis pcm_slab.fds
 $QFDS -d Pyrolysis pyro3d_wood_char.fds
 $QFDS -d Pyrolysis pyro3d_vs_pyro1d.fds
+$QFDS -d Pyrolysis pyro3d_vs_pyro1d_wood_moist.fds
 $QFDS -d Pyrolysis pyro3d_transport.fds
+
 
 $QFDS -d Radiation adiabatic_surface_temperature.fds
 $QFDS -d Radiation droplet_absorption_cart.fds
@@ -573,17 +578,21 @@ $QFDS -d Species wall_cond.fds
 $QFDS -d Species humidity.fds
 
 $QFDS -d Sprinklers_and_Sprays activate_sprinklers.fds
+$QFDS -d Sprinklers_and_Sprays adiabatic_surface_temperature_spray.fds
 $QFDS -d Sprinklers_and_Sprays bucket_test_1.fds
 $QFDS -d Sprinklers_and_Sprays bucket_test_2.fds
 $QFDS -d Sprinklers_and_Sprays bucket_test_3.fds
 $QFDS -d Sprinklers_and_Sprays bucket_test_4.fds
 $QFDS -d Sprinklers_and_Sprays cannon_ball.fds
 $QFDS -d Sprinklers_and_Sprays cascade.fds
+$QFDS -p 2 -d Sprinklers_and_Sprays e_coefficient.fds
 $QFDS -d Sprinklers_and_Sprays droplet_distributions.fds
 $QFDS -d Sprinklers_and_Sprays droplet_distributions_2.fds
 $QFDS -d Sprinklers_and_Sprays flow_rate.fds
 $QFDS -d Sprinklers_and_Sprays flow_rate_2.fds
 $QFDS -p 2 -d Sprinklers_and_Sprays geom_sprk_mass.fds
+$QFDS -d Sprinklers_and_Sprays particle_anisotropic_radiation.fds
+$QFDS -d Sprinklers_and_Sprays particle_isotropic_radiation.fds
 $QFDS -d Sprinklers_and_Sprays particle_colors.fds
 $QFDS -d Sprinklers_and_Sprays particle_drag_U10_N16.fds
 $QFDS -d Sprinklers_and_Sprays particle_drag_U50_N16.fds
@@ -591,8 +600,9 @@ $QFDS -d Sprinklers_and_Sprays particle_drag_U100_N16.fds
 $QFDS -d Sprinklers_and_Sprays particle_drag_U50_N1600.fds
 $QFDS -d Sprinklers_and_Sprays particle_drag_U100_N1600.fds
 $QFDS -d Sprinklers_and_Sprays particle_drag_U150_N1600.fds
-$QFDS -p 2 -d Sprinklers_and_Sprays e_coefficient.fds
 $QFDS -d Sprinklers_and_Sprays particle_flux.fds
+$QFDS -d Sprinklers_and_Sprays particle_heating_convection.fds
+$QFDS -d Sprinklers_and_Sprays particle_heating_radiation.fds
 $QFDS -d Sprinklers_and_Sprays sphere_drag_1.fds
 $QFDS -d Sprinklers_and_Sprays sphere_drag_2.fds
 $QFDS -d Sprinklers_and_Sprays terminal_velocity_dt_1_0.fds
@@ -733,11 +743,15 @@ $QFDS -d Turbulence ramp_prof_u_z.fds
 $QFDS -d WUI Bova_1a.fds
 $QFDS -d WUI Bova_1b.fds
 $QFDS -d WUI Bova_4a.fds
+$QFDS -d WUI char_oxidation_1.fds
+$QFDS -d WUI char_oxidation_2.fds
 $QFDS -d WUI dragon_5a.fds
 $QFDS -p 2 -d WUI ground_vegetation_conv.fds
 $QFDS -p 2 -d WUI ground_vegetation_drag.fds
 $QFDS -p 2 -d WUI ground_vegetation_load.fds
 $QFDS -p 2 -d WUI ground_vegetation_radi.fds
+$QFDS -d WUI hot_rods.fds
+$QFDS -d WUI level_set_fuel_model_1.fds
 $QFDS -d WUI pine_needles.fds
 $QFDS -d WUI radiation_gas-veg_consistency_gas.fds
 $QFDS -d WUI radiation_gas-veg_consistency_veg.fds

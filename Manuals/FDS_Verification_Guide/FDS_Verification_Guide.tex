@@ -155,6 +155,8 @@ The following individuals contributed to the verification process of FDS.
 \item Chao Zhang of Tongji University provided the finite-element analysis for the HT3D I-beam test case.
 \item Salah Benkorichi of Ulster University, Belfast, developed the HT3D sphere test case.
 \item Kiyoung Moon and Jung-il Choi of Yonsei University, Seoul, South Korea, provided the Heat Channel Flow case.
+\item Jesus Alberto Mejias Tuni of Politecnico di Torino provided the 1-D tunnel cases with heat release.
+\item Morteza Gholami Haghighi Fard of Aalto University, Finland, contributed the PYRO3D ``Parallel Solid Phase Reactions'' case.
 \end{itemize}
 
 
@@ -1511,6 +1513,8 @@ This test case is a replica of {\ct water\_evaporation\_1} in Sec.~\ref{water_ev
 
 \section{Tunnel Flow}
 
+\textbf{Jesus Alberto Mejias Tuni, Politecnico di Torino}
+
 \subsection{1-D Flow in a Tunnel (\texorpdfstring{\textct{tunnel\_const\_gamma}}{tunnel\_const\_gamma})}
 \label{tunnel_const_gamma}
 
@@ -2167,8 +2171,17 @@ In order for species mass fractions to be physically realizable they must all be
 \label{fig:realizable_mass_fractions}
 \end{figure}
 
+\subsection{Integral Mass Test for Complex Geometry (\texorpdfstring{\textct{geom\_mass\_file\_test}}{geom\_mass\_file\_test})}
+\label{geom_mass_file_test}
 
+A 1 m$^3$ box contains AIR at ambient conditions and has a sphere of radius 0.5 m leaving a volume of 0.4764 $m^3$.  The FDS {\ct MASS\_FILE} output is tested to ensure the correct cut cell volumes are being computed and the primitive species for AIR are correctly output.  The results are shown below in Fig.~\ref{fig:geom_mass_file_test}.
 
+\begin{figure}[ht]
+\centering
+\includegraphics[height=2.2in]{SCRIPT_FIGURES/geom_mass_file_test}
+\caption[The \textct{geom\_mass\_file\_test} test case]{Results of the \textct{geom\_mass\_file\_test} test case.}
+\label{fig:geom_mass_file_test}
+\end{figure}
 
 \section{Energy Conservation}
 
@@ -2732,6 +2745,20 @@ Tests similar to those in Section~\ref{droplet_absorption} are performed for sol
 \label{particle_absorption_figures}
 \end{figure}
 
+
+\section{Consistency of Particle Absorbed Energy and the Radiative Loss Term}
+\label{particle_isotropic_radiation}
+\label{particle_anisotropic_radiation}
+
+Small spherical, cylindrical and planar particles with black (emissivity = 1) surfaces are placed in radiation field. Radiation is coming from black surfaces, and the gas is pure Nitrogen, i.e. non-participating. The amount of energy removed from the intensity field is measured by a device calculating spatial and temporal integrals of radiation loss term (Q\_w).  The reference solution (E\_w) is the wall enthalpy increase, as observed by the one-dimensional heat conduction solver. 
+In {\ct particle\_isotropic\_radiation}, the radiation field isotropic, i.e. all surfaces are black and constant temperature. In {\ct particle\_anisotropic\_radiation}, an anistropic intensity field is geated by specifying one hot wall, one cold wall, and four other fields being mirrors. 
+
+\begin{figure}[ht]
+\includegraphics[height=2.2in]{SCRIPT_FIGURES/particle_isotropic_radiation}
+\includegraphics[height=2.2in]{SCRIPT_FIGURES/particle_anisotropic_radiation}
+\caption[The {\ct particle\_isotropic\_radiation} and {\ct particle\_anisotropic\_radiation} test cases]{Absorbed energy of spherical, cylindrical and cartesian particles in isotropic (left) and anisotropic (right) radiation field.}
+\label{particle_an_isotropic_radiation_figs}
+\end{figure}
 
 
 \section{Radiation Attenuation by Scattering Particles (\texorpdfstring{\textct{part\_attenuation}}{part\_attenuation}) }
@@ -4781,6 +4808,21 @@ This case compares mass loss rates and material thickness for pyrolysis of black
 	\label{fig:pyro3d_vs_pyro1d}
 \end{figure}
 
+\subsection{Parallel Solid Phase Reactions (\texorpdfstring{\textct{pyro3d\_vs\_pyro1d\_wood\_moist}}{pyro3d\_vs\_pyro1d\_wood\_moist})}
+\label{pyro3d_vs_pyro1d_wood_moist}
+
+\textbf{Morteza Gholami Haghighi Fard, Aalto University}\\
+
+\noindent This case compares the mass conservation results between the 3D pyrolysis solver and 1D solver for a solid which undergoes a more complicated pyrolysis reaction than a solid with single virgin material. A wooden sample composed of 10 \% moisture content and 90 \% birch material (by mass) is heated up with an external flux of 50 \si{kW/m^2} from the top in both solvers. The moisture content evaporates into water vapor completely. Diversely, half of the birch material pyrolyzes into gaseous fuel while the other half converts to char residue. For the sake of comparability of 1D and 3D solvers, geometry and grid resolutions are set the same as the {\ct pyro3d\_vs\_pyro1d} verification case. Fig.~\ref{fig:pyro3d_vs_pyro1d_wood_moist} compares the gas production and solid phase material exchange for two solvers. As one can see, both algorithms generate similar results.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[height=2.2in]{SCRIPT_FIGURES/pyro3d_vs_pyro1d_wood_moist_gas} \\
+	\includegraphics[height=2.2in]{SCRIPT_FIGURES/pyro3d_vs_pyro1d_wood_moist_solid}
+	\caption[PYRO3D parallel solid phase reactions (the {\ct pyro3d\_vs\_pyro1d\_wood\_moist} case)]{Comparison of mass conservation results of 3D and 1D pyrolysis solvers for a wooden sample with parallel pyrolysis reactions. The top plot compares the gas production and the lower plot compares the solid phase material exchange. Verification targets are mass curves.}
+	\label{fig:pyro3d_vs_pyro1d_wood_moist}
+\end{figure}
+
 \subsection{Mass Transport (\texorpdfstring{\textct{pyro3d\_transport}}{pyro3d\_transport})}
 \label{pyro3d_transport}
 
@@ -4791,6 +4833,18 @@ This case is a 3D version of the {\ct FAA\_Polymers\_PMMA} validation case.  A b
     \includegraphics[height=2.2in]{SCRIPT_FIGURES/pyro3d_transport}
     \caption[PYRO3D with mass transport of fuel gas (the {\ct pyro3d\_transport} case)]{Check of mass conservation in conversion of solid (PMMA) to fuel gas (methane) with burn away using the 3D pyrolysis mass transport algorithm.}
     \label{fig:pyro3d_transport}
+\end{figure}
+
+\section{Cone Data Extrapolation Model (\texorpdfstring{\textct{cone\_demo\_2}}{cone\_demo\_2})}
+\label{cone_demo_2}
+
+This section tests a model for extrapolating heat release rate data from a cone calorimeter to heat fluxes other than the one used during the cone test. In the case a surface is assigned an {\ct HRRPUA} and {\ct RAMP\_Q} from a cone test performed at 50~\si{kW/m^2}. The surface is given an {\ct IGNITION\_TEMPERATURE} of 0~$^\circ$C so it ignites immediately. The surface is exposed to a sawtooth {\ct EXTERNAL\_FLUX} that varies between 10~\si{kW/m^2} and 110~\si{kW/m^2}. The results are shown below in Fig~\ref{fig:cone_demo_2}.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[height=2.2in]{SCRIPT_FIGURES/cone_demo_2}
+	\caption[Cone data extrapolation model (the {\ct cone\_demo\_2} case)]{Check of the cone data extrapolation model.}
+	\label{fig:cone_demo_2}
 \end{figure}
 
 \chapter{Lagrangian Particles}
@@ -5067,21 +5121,38 @@ Figure~\ref{flat_fire_plots} compares the first and second order accurate FDS so
 
 \clearpage
 
-\section{Radiation Absorption by Particles}
+\section{Solid Particle Mass and Energy Transfer}
 
 \subsection{Radiation Absorption by Vegetation}
 \label{vegetation_absorb}
 
-In this example, six channels, each measuring 4~m by 1~m by 1~m, are filled with various amounts of particles that represent vegetation---shrubbery, for example. The vegetation occupies exactly one cubic meter within each channel. One end of each channel is a solid wall with temperature $T_{\rm hot}= 1273$~K, and the opposite end is a wall with temperature $T_{\rm cold}=0$~K. Each wall has an emissivity of 1 and a heat transfer coefficient of 0. The side walls of the channels are ``mirror'' boundaries which essentially means that the end walls and vegetation layer are infinitely wide, rendering the configuration one-dimensional. With no particles present, the radiative intensity, or {\em radiance}, in the axial direction at the hot wall is $I_0=\sigma T_{\rm hot}^4/\pi \approx 47.4$~kW/(m$^2 \cdot$sr). With particles present, the radiance is expected to attenuate according to the following:
+In this example, six channels, each measuring 4~m by 1~m by 1~m, are filled with various amounts of particles that represent vegetation. The vegetation occupies exactly one cubic meter within each channel. One end of each channel is a solid wall with temperature $T_{\rm hot}= 1273$~K, and the opposite end is a wall with temperature $T_{\rm cold}=0$~K. Each wall has an emissivity of 1 and a heat transfer coefficient of 0. The side walls of the channels are ``mirror'' boundaries which essentially means that the end walls and vegetation layer are infinitely wide, rendering the configuration one-dimensional. With no particles present, the radiative intensity, or {\em radiance}, in the axial direction at the hot wall is $I_0=\sigma T_{\rm hot}^4/\pi \approx 47.4$~kW/(m$^2 \cdot$sr). With particles present, the radiance is expected to attenuate according to the following:
 \be
-   I = I_0 \, \hbox{e}^{-C_{\rm s} \beta \sigma_{\rm p} L}
+   I = I_0 \, \hbox{e}^{-0.25 \, \beta \sigma_{\rm p} L}
 \ee
-where $C_{\rm s}$ is the particle shape factor, $\beta$ is the ``packing ratio,'' $\sigma_{\rm p}$ is the particle surface area to volume ratio, and $L=1$~m is the depth of the vegetation layer. It is assumed that the vegetation in this case consists of uniformly sized cylinders that are 1~mm in diameter and 2~cm long. The shape factor is taken to be the ratio of the cylinder's cross sectional area to surface area when oriented normal to the central axis of the channel, or $1/\pi$. The packing ratio is $m'''/\rho_{\rm p}$, the vegetation mass per unit volume, or bulk density, divided by the density of the vegetation itself. $\rho_{\rm p}=500$~kg/m$^3$ in this example. The surface area to volume ratio of the cylinder is $2/r=4000$~m$^{-1}$, where $r$ is the radius of the cylinder. Figure~\ref{vegetation_absorb_fig} displays the comparison of the expected radiative heat flux versus that calculated by FDS.
+$\beta=m'''/\rho_{\rm p}$ is the ``packing ratio,'' the vegetation mass per unit volume, or ``bulk density,'' divided by the density of the vegetation itself, $\rho_{\rm p}=500$~kg/m$^3$. $\sigma_{\rm p}=4000$~m$^{-1}$ is the particle surface area to volume ratio, and $L=1$~m is the depth of the vegetation layer. Figure~\ref{vegetation_absorb_fig} displays the comparison of the expected radiative heat flux versus that calculated by FDS.
 \begin{figure}[!ht]
 \centering
 \includegraphics[height=2.2in]{SCRIPT_FIGURES/vegetation_absorb}
 \caption[Results of the \textct{vegetation\_absorb} test case.]{Decrease in radiance caused by layers of vegetation of various densities.}
 \label{vegetation_absorb_fig}
+\end{figure}
+
+
+\subsection{Heating a Metal Sphere via Radiation and Convection}
+\label{particle_heating_convection}
+\label{particle_heating_radiation}
+
+A small metal sphere with mass, $m_{\rm s}=0.005$~kg, is suspended in a 1~m cube filled with $m_{\rm g}=0.318$~kg nitrogen with a specified specific heat, $c_p=1$~kJ/(kg$\cdot$K), and initial temperature, $T_{\rm g,i}=1073.15$~K. The metal has a specified specific heat, $c_{\rm s}=1$~kJ/(kg$\cdot$K), and initial temperature, $T_{\rm s,i}=293.15$~K. The walls of the box are adiabatic. In the first case, {\ct particle\_heating\_convection}, the sphere is heated via convection only and there is no radiation heat transfer. In the second case, {\ct particle\_heating\_radiation}, the sphere is heated via radiation only. The initial heat flux in both cases is approximately 75~kW/m$^2$, and the final temperature in both cases, $T_{\rm f}$, is found from solving an equation that equates the internal energy gained by the solid with the internal energy lost by the gas:
+\be
+   m_{\rm s} \, c_{\rm s} \, (T_{\rm f}-T_{\rm s,i}) = m_{\rm g} \, c_{v} \, (T_{\rm g,i}-T_{\rm f})  \quad ; \quad  c_v = c_p - \frac{R}{W} = 1 - \frac{8.3145}{28} \approx 0.703 \; \hbox{kJ/(kg}\cdot\hbox{K})
+\ee
+The final temperature, $T_{\rm f}=1056.1$~K or 782.9~$^\circ$C, as shown in Fig.~\ref{particle_heating_figs}.
+\begin{figure}[ht]
+\includegraphics[height=2.2in]{SCRIPT_FIGURES/particle_heating_convection}
+\includegraphics[height=2.2in]{SCRIPT_FIGURES/particle_heating_radiation}
+\caption[The {\ct particle\_heating} test cases]{Temperature of a small cold sphere and surrounding hot gas when the sphere is heated by convection only (left) and radiation only (right).}
+\label{particle_heating_figs}
 \end{figure}
 
 
@@ -5277,6 +5348,18 @@ In the test case called {\ct Sprinklers\_and\_Sprays/geom\_sprk\_mass.fds}, two 
 \caption[The {\ct geom\_sprk\_mass} test case]{Mass of water pooled on two solid obstructions.}
 \label{geom_sprk_mass_fig}
 \end{figure}
+
+\subsection{Water Cooling in Adiabatic Surface Temperature (\texorpdfstring{{\textct{adiabatic\_surface\_temperature\_spray}}}{adiabatic\_surface\_temperature\_spray}) }
+\label{AST_spray}
+
+This test case is a modified version of {\ct Radiation/adiabatic\_surface\_temperature}. A thin metal plate with insulated backing is heated for 100 s. Adiabatic surface temperature (AST) is measured from the surface of the plate. Figure~\ref{adiabatic_surf_temp_spray} shows that after about 40 s, the plate temperature and AST match each other. At 50 s, a water spray is turned on and it starts to cool down the surface. At 100 s, the heater is turned off, and the plate cools down even more. AST and plate temperatures should match each other in the end of every 50 s period.
+\begin{figure}[h!]
+\centering
+\includegraphics[height=2.2in]{SCRIPT_FIGURES/adiabatic_surface_temperature_spray}
+\caption[The {\ct adiabatic\_surface\_temperature\_spray} test case]{Adiabatic and true surface temperatures under radiative heating (0 - 50 s), heating and spray  cooling (50-100 s) and only spray cooling (100-150 s).}
+\label{adiabatic_surf_temp_spray}
+\end{figure}
+
 
 
 \section{Flow Rate and Pipe Networks (\texorpdfstring{{\textct{flow\_rate\_2}}}{flow\_rate\_2}) }
@@ -5523,7 +5606,7 @@ The solution is that $\Delta p=344.16$~Pa, as shown in Fig.~\ref{fig_leak_test_4
 
 \begin{figure}[ht]
   \centering
-      \scalebox{1.0}{ \includegraphics[height=2.2in]{SCRIPT_FIGURES/leak_test_4} } 
+      \scalebox{1.0}{ \includegraphics[height=2.2in]{SCRIPT_FIGURES/leak_test_4} }
    \caption[The \textct{leak\_test\_4} test case]{Pressure rise in a compartment constructed of immersed boundary obstructions.}
    \label{fig_leak_test_4}
 \end{figure}
@@ -5715,8 +5798,8 @@ h_{\mbox{\tiny CFD}} = c_p \frac{V(T_{\mbox{\tiny left}}}{2} \rho_{\mbox{\tiny l
 \end{figure}
 
 
-
 % Unstructured geometry verification tests:
+
 \ifcompgeom
 
 \chapter{Unstructured Geometry}
@@ -6289,7 +6372,6 @@ There is more noise on the fixed geometry case $h=\Delta z_{10}/11$, because the
 \subsection{Conservation test of isothermal helium plume around sphere}
 
 
-
 \section{Geometry tests involving heat and mass transfer}
 
 
@@ -6329,12 +6411,7 @@ as shown in Fig.~\ref{sphere_leak_fig}.
 
 \section{Geometry tests involving fire}
 
-
-
 \fi
-
-
-
 
 
 \chapter{Outputs}
@@ -6446,7 +6523,7 @@ Fires                   & \ref{UG-spray_burner}           & spray\_burner.fds   
 Heat\_Transfer          & \ref{heat_conduction_kc}        & heat\_conduction\_kc.fds                   & heat\_conduction\_kc\_devc.csv                   & heat\_conduction\_kc.csv \\ \hline
 HVAC                    & \ref{ashrae7}                   & ashrae7\_table.fds                         & ashrae7\_table\_devc.csv                         & ashrae7\_exp.csv \\ \hline
 Pressure\_Solver        & \ref{UG-duct_flow}              & duct\_flow.fds                             & duct\_flow\_devc.csv                             & duct\_flow.csv \\ \hline
-Pressure\_Solver        & \ref{UG-duct_flow}              & duct\_flow\_uglmat.fds           & duct\_flow\_uglmat\_devc.csv                    & duct\_flow.csv \\ \hline
+Pressure\_Solver        & \ref{UG-duct_flow}              & duct\_flow\_uglmat.fds                     & duct\_flow\_uglmat\_devc.csv                     & duct\_flow.csv \\ \hline
 Pyrolysis               & \ref{enthalpy}                  & enthalpy.fds                               & enthalpy\_devc.csv                               & enthalpy.csv \\ \hline
 Pyrolysis               & \ref{shrink_swell}              & shrink\_swell.fds                          & shrink\_swell\_devc.csv                          & shrink\_swell.csv \\ \hline
 Radiation               & \ref{radiation_shield}          & radiation\_shield.fds                      & radiation\_shield\_devc.csv                      & radiation\_shield.csv \\ \hline
@@ -6459,6 +6536,7 @@ Sprinklers\_and\_Sprays & \ref{particle_drag}             & particle\_drag\_U50\
 \end{landscape}
 
 % Unstructured geometry Appendix:
+
 \ifcompgeom
 
 \chapter{Unstructured Geometry integral conservation tests}
@@ -6545,9 +6623,7 @@ Three geometry conservation tests can be defined for the polyhedra definition ar
 
 \end{enumerate}
 
-
-
-
 \fi
+
 
 \end{document}
